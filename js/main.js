@@ -6,7 +6,7 @@ const COMMENTS_AVATAR_NUMBER_MAX = 6;
 const LIKES_NUMBER_MIN = 15;
 const LIKES_NUMBER_MAX = 200;
 
-const POSTS_DESCRIPTION = [
+const POST_DESCRIPTIONS = [
   'Сейчас я дома уже',
   'Взял нож - режь, взял дошик - ешь',
   'Я живу, как карта ляжет. Ты живёшь, как мамка скажет',
@@ -25,7 +25,7 @@ const COMMENTS_CONTENT = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-const COMMENTATOR_NICKNAME = [
+const COMMENTATOR_NICKNAMES = [
   'Джейсон',
   'Иван',
   'Хуан Себастьян',
@@ -37,20 +37,23 @@ const COMMENTATOR_NICKNAME = [
 ];
 
 
-const genRandomUInt = (min, max) => {
+const genRandomInteger = (min, max) => {
   const postProcMin = Math.ceil(Math.min(min, max));
   const postProcMax = Math.floor(Math.max(min, max));
   return Math.floor(Math.random() * (postProcMax - postProcMin + 1) + postProcMin);
 };
 
 
-const getRandomArrayElement = (inputArray) => inputArray[genRandomUInt(0, inputArray.length - 1)];
+const flipCoin = () => Math.round(Math.random());
+
+
+const getRandomArrayElement = (inputArray) => inputArray[genRandomInteger(0, inputArray.length - 1)];
 
 
 const getUnicRandomArrayElement = function (inputArray) {
   return () => {
     if (inputArray.length !== 0) {
-      const indexElement = genRandomUInt(0, inputArray.length - 1);
+      const indexElement = genRandomInteger(0, inputArray.length - 1);
       const element = inputArray[indexElement];
       inputArray.splice(indexElement, 1);
 
@@ -65,8 +68,7 @@ const generateComment = function (allowedIdArray) {
   return function () {
     let commentText = '';
 
-    // Подброс монетки
-    if (Math.round(Math.random())) {
+    if (flipCoin()) {
       commentText = getRandomArrayElement(COMMENTS_CONTENT);
     } else {
       const getRandomComment = getUnicRandomArrayElement(COMMENTS_CONTENT.slice());
@@ -76,9 +78,9 @@ const generateComment = function (allowedIdArray) {
 
     return {
       id: genUniqId(),
-      avatar: `img/avatar-${genRandomUInt(COMMENTS_AVATAR_NUMBER_MIN, COMMENTS_AVATAR_NUMBER_MAX)}.svg`,
+      avatar: `img/avatar-${genRandomInteger(COMMENTS_AVATAR_NUMBER_MIN, COMMENTS_AVATAR_NUMBER_MAX)}.svg`,
       message: commentText,
-      name: getRandomArrayElement(COMMENTATOR_NICKNAME)
+      name: getRandomArrayElement(COMMENTATOR_NICKNAMES)
     };
   };
 };
@@ -96,9 +98,9 @@ const generatePost = () => {
     return {
       id: indexPost,
       url: `photos/${indexPost}.jpg`,
-      description: getRandomArrayElement(POSTS_DESCRIPTION),
-      likes: genRandomUInt(LIKES_NUMBER_MIN, LIKES_NUMBER_MAX),
-      comments: Array.from({ length: genRandomUInt(0, COMMENTS_NUMBER_MAX) }, genComment)
+      description: getRandomArrayElement(POST_DESCRIPTIONS),
+      likes: genRandomInteger(LIKES_NUMBER_MIN, LIKES_NUMBER_MAX),
+      comments: Array.from({ length: genRandomInteger(0, COMMENTS_NUMBER_MAX) }, genComment)
     };
   };
 };
