@@ -1,4 +1,4 @@
-import {genRandomInteger, flipCoin, getRandomArrayElement, getUnicRandomArrayElement} from './util.js';
+import { genRandomInteger, flipCoin, getRandomArrayElement, getUnicRandomArrayElement } from './util.js';
 
 const COMMENTS_NUMBER_MAX = 30;
 const COMMENTS_NUMBER_ID_MAX = 300;
@@ -82,4 +82,4 @@ const generatePost = () => {
 const genNewPost = generatePost();
 const generatePosts = (postsNumber) => Array.from({ length: postsNumber }, genNewPost);
 
-export {generatePosts};
+export { generatePosts };
