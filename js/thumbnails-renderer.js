@@ -1,7 +1,19 @@
+import { getGeneratedPosts } from './generate-data.js';
+import { openFullPhoho } from './full-photo-popup.js';
+
 const thumbnailTeamplate = document.querySelector('#picture').content.querySelector('.picture');
 const thumbnailsContainer = document.querySelector('.pictures');
 
-const renderThumbnails = (postsData) => {
+
+const onThumbnailClick = (evt) => {
+  if (evt.target.classList.contains('picture__img')) {
+    evt.preventDefault();
+    openFullPhoho(+evt.target.dataset.id);
+  }
+};
+
+const renderThumbnails = () => {
+  const postsData = getGeneratedPosts();
   const thumbnailsFragment = document.createDocumentFragment();
 
   postsData.forEach(({id, url, description, likes, comments}) => {
@@ -18,7 +30,7 @@ const renderThumbnails = (postsData) => {
   });
 
   thumbnailsContainer.append(thumbnailsFragment);
+  thumbnailsContainer.addEventListener('click', onThumbnailClick);
 };
-
 
 export { renderThumbnails };
