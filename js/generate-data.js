@@ -79,7 +79,14 @@ const generatePost = () => {
   };
 };
 
-const genNewPost = generatePost();
-const generatePosts = (postsNumber) => Array.from({ length: postsNumber }, genNewPost);
 
-export { generatePosts };
+let generatedArray = [];
+const genNewPost = generatePost();
+
+const generatePosts = (postsNumber) => {
+  generatedArray = generatedArray.concat(Array.from({ length: postsNumber }, genNewPost));
+};
+
+const getGeneratedPosts = () => generatedArray;
+
+export { generatePosts, getGeneratedPosts };

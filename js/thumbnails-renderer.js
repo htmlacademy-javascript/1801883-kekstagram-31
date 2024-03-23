@@ -1,7 +1,10 @@
+import { getGeneratedPosts } from './generate-data';
+
 const thumbnailTeamplate = document.querySelector('#picture').content.querySelector('.picture');
 const thumbnailsContainer = document.querySelector('.pictures');
 
-const renderThumbnails = (postsData) => {
+const renderThumbnails = () => {
+  const postsData = getGeneratedPosts();
   const thumbnailsFragment = document.createDocumentFragment();
 
   postsData.forEach(({id, url, description, likes, comments}) => {
@@ -19,6 +22,5 @@ const renderThumbnails = (postsData) => {
 
   thumbnailsContainer.append(thumbnailsFragment);
 };
-
 
 export { renderThumbnails };
