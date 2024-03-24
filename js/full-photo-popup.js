@@ -1,13 +1,12 @@
 import { getGeneratedPosts } from './generate-data.js';
 import { addCommets, deleteComments } from './full-photo-comments.js';
 
-const bigPictureContainer = document.querySelector('.big-picture');
-const imageElement = bigPictureContainer.querySelector('.big-picture__img').querySelector('img');
-const closeButtonElement = bigPictureContainer.querySelector('.big-picture__cancel');
-const descriptionImageElement = bigPictureContainer.querySelector('.social__caption');
-const likesCountElement = bigPictureContainer.querySelector('.likes-count');
+const bigPictureContainerELement = document.querySelector('.big-picture');
+const imageElement = bigPictureContainerELement.querySelector('.big-picture__img').querySelector('img');
+const closeButtonElement = bigPictureContainerELement.querySelector('.big-picture__cancel');
+const descriptionImageElement = bigPictureContainerELement.querySelector('.social__caption');
+const likesCountElement = bigPictureContainerELement.querySelector('.likes-count');
 
-let linkWithRenderNextComments = function () {};
 
 const onEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -26,9 +25,9 @@ function closeFullPhoto () {
   closeButtonElement.removeEventListener('click', onCloseButtonCleack);
 
   document.body.classList.remove('modal-open');
-  bigPictureContainer.classList.add('hidden');
+  bigPictureContainerELement.classList.add('hidden');
 
-  deleteComments(linkWithRenderNextComments);
+  deleteComments();
 }
 
 const openFullPhoho = (idPosts) => {
@@ -40,13 +39,13 @@ const openFullPhoho = (idPosts) => {
   descriptionImageElement.textContent = description;
   likesCountElement.textContent = likes.toString();
 
-  linkWithRenderNextComments = addCommets(comments);
+  addCommets(comments);
 
   document.addEventListener('keydown', onEscKeydown);
   closeButtonElement.addEventListener('click', onCloseButtonCleack);
 
   document.body.classList.add('modal-open');
-  bigPictureContainer.classList.remove('hidden');
+  bigPictureContainerELement.classList.remove('hidden');
 };
 
 export { openFullPhoho };

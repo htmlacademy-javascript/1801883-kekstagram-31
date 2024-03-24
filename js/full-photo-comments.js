@@ -2,12 +2,14 @@ import { generateComment } from './util.js';
 
 const COMMENTS_PER_ACTION = 5;
 
-const bigPictureContainer = document.querySelector('.big-picture');
-const commentsContainerElement = bigPictureContainer.querySelector('.social__comments');
-const commentsLoadButtonElement = bigPictureContainer.querySelector('.comments-loader');
-const commentsCounterContainerElement = bigPictureContainer.querySelector('.social__comment-count');
+const bigPictureContainerElement = document.querySelector('.big-picture');
+const commentsContainerElement = bigPictureContainerElement.querySelector('.social__comments');
+const commentsLoadButtonElement = bigPictureContainerElement.querySelector('.comments-loader');
+const commentsCounterContainerElement = bigPictureContainerElement.querySelector('.social__comment-count');
 const commentsShownCountElement = commentsCounterContainerElement.querySelector('.social__comment-shown-count');
 const commentsTotalCountElement = commentsCounterContainerElement.querySelector('.social__comment-total-count');
+
+let renderNextComments;
 
 
 const renderComments = (comments) => {
@@ -38,16 +40,14 @@ const addCommets = (comments) => {
     commentsContainerElement.firstChild.remove();
   }
 
-  const renderNextComments = renderComments(comments);
+  renderNextComments = renderComments(comments);
   renderNextComments();
   commentsLoadButtonElement.addEventListener('click', renderNextComments);
-
-  return renderNextComments;
 };
 
-const deleteComments = (callbackLink) => {
+const deleteComments = () => {
   commentsLoadButtonElement.classList.remove('hidden');
-  commentsLoadButtonElement.removeEventListener('click', callbackLink);
+  commentsLoadButtonElement.removeEventListener('click', renderNextComments);
 };
 
 export { addCommets, deleteComments };
