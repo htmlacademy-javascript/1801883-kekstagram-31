@@ -2,7 +2,7 @@ import { getGeneratedPosts } from './generate-data.js';
 import { openFullPhoho } from './full-photo-popup.js';
 
 const thumbnailTeamplate = document.querySelector('#picture').content.querySelector('.picture');
-const thumbnailsContainer = document.querySelector('.pictures');
+const thumbnailsContainerElement = document.querySelector('.pictures');
 
 
 const onThumbnailClick = (evt) => {
@@ -29,8 +29,8 @@ const renderThumbnails = () => {
     thumbnailsFragment.append(thumbnail);
   });
 
-  thumbnailsContainer.append(thumbnailsFragment);
-  thumbnailsContainer.addEventListener('click', onThumbnailClick);
+  thumbnailsContainerElement.append(thumbnailsFragment);
+  thumbnailsContainerElement.addEventListener('click', onThumbnailClick);
 };
 
 export { renderThumbnails };

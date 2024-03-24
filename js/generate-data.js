@@ -38,24 +38,22 @@ const COMMENTATOR_NICKNAMES = [
 ];
 
 
-const generateComment = function (allowedIdArray) {
-  return function () {
-    let commentText = '';
+const generateComment = (allowedIdArray) => function () {
+  let commentText = '';
 
-    if (flipCoin()) {
-      commentText = getRandomArrayElement(COMMENTS_CONTENT);
-    } else {
-      const getRandomComment = getUnicRandomArrayElement(COMMENTS_CONTENT.slice());
-      commentText = `${getRandomComment()}\n${getRandomComment()}`;
-    }
-    const genUniqId = getUnicRandomArrayElement(allowedIdArray);
+  if (flipCoin()) {
+    commentText = getRandomArrayElement(COMMENTS_CONTENT);
+  } else {
+    const getRandomComment = getUnicRandomArrayElement(COMMENTS_CONTENT.slice());
+    commentText = `${getRandomComment()}\n${getRandomComment()}`;
+  }
+  const genUniqId = getUnicRandomArrayElement(allowedIdArray);
 
-    return {
-      id: genUniqId(),
-      avatar: `img/avatar-${genRandomInteger(COMMENTS_AVATAR_NUMBER_MIN, COMMENTS_AVATAR_NUMBER_MAX)}.svg`,
-      message: commentText,
-      name: getRandomArrayElement(COMMENTATOR_NICKNAMES)
-    };
+  return {
+    id: genUniqId(),
+    avatar: `img/avatar-${genRandomInteger(COMMENTS_AVATAR_NUMBER_MIN, COMMENTS_AVATAR_NUMBER_MAX)}.svg`,
+    message: commentText,
+    name: getRandomArrayElement(COMMENTATOR_NICKNAMES)
   };
 };
 
