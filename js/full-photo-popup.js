@@ -1,5 +1,5 @@
 import { getGeneratedPosts } from './generate-data.js';
-import { generateComment } from './util.js';
+import { addCommets, deleteComments } from './full-photo-comments.js';
 
 const bigPictureContainer = document.querySelector('.big-picture');
 const imageElement = bigPictureContainer.querySelector('.big-picture__img').querySelector('img');
@@ -7,11 +7,7 @@ const closeButtonElement = bigPictureContainer.querySelector('.big-picture__canc
 const descriptionImageElement = bigPictureContainer.querySelector('.social__caption');
 const likesCountElement = bigPictureContainer.querySelector('.likes-count');
 
-const commentsContainerElement = bigPictureContainer.querySelector('.social__comments');
-const commentsLoadButtonElement = bigPictureContainer.querySelector('.comments-loader');
-const commentsCounterElement = bigPictureContainer.querySelector('.social__comment-count');
-const commentsShownCountElement = commentsCounterElement.querySelector('.social__comment-shown-count');
-const commentsTotalCountElement = commentsCounterElement.querySelector('.social__comment-total-count');
+let linkWithRenderNextComments = function () {};
 
 const onEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -31,6 +27,8 @@ function closeFullPhoto () {
 
   document.body.classList.remove('modal-open');
   bigPictureContainer.classList.add('hidden');
+
+  deleteComments(linkWithRenderNextComments);
 }
 
 const openFullPhoho = (idPosts) => {
@@ -41,20 +39,12 @@ const openFullPhoho = (idPosts) => {
   imageElement.alt = description;
   descriptionImageElement.textContent = description;
   likesCountElement.textContent = likes.toString();
-  commentsTotalCountElement.textContent = comments.length.toString();
-  commentsShownCountElement.textContent = comments.length.toString();
 
-  while (commentsContainerElement.firstChild) {
-    commentsContainerElement.firstChild.remove();
-  }
-  comments.forEach((comment) => commentsContainerElement.insertAdjacentHTML('beforeEnd', generateComment(comment)));
-
+  linkWithRenderNextComments = addCommets(comments);
 
   document.addEventListener('keydown', onEscKeydown);
   closeButtonElement.addEventListener('click', onCloseButtonCleack);
 
-  commentsCounterElement.classList.add('hidden');
-  commentsLoadButtonElement.classList.add('hidden');
   document.body.classList.add('modal-open');
   bigPictureContainer.classList.remove('hidden');
 };
