@@ -21,9 +21,9 @@ const getUnicRandomArrayElement = function (inputArray) {
   };
 };
 
-const generateComment = ({avatar, message}) => {
+const generateComment = ({avatar, message, name}) => {
   const textLi = '<li class="social__comment">';
-  const textImg = `<img class="social__picture" src="${avatar}" alt="Аватар комментатора фотографии" width="35" height="35">`;
+  const textImg = `<img class="social__picture" src="${avatar}" alt="${name}" width="35" height="35">`;
   const textP = `<p class="social__text">${message}</p></li>`;
 
   return textLi + textImg + textP;
